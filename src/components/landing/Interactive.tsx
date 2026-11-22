@@ -2,6 +2,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { MagneticButton } from "./fx";
 
+const OFFICIAL = "https://mausehot.vercel.app";
+
 function Field({ label, v, set, mn, mx, unit }: { label: string; v: number; set: (n: number) => void; mn: number; mx: number; unit: string }) {
   return (
     <label className="block">
@@ -35,7 +37,7 @@ export function RoiCalculator() {
           </motion.p>
           <p className="mt-2 text-sm opacity-80">Estimativa considerando 70% do trabalho manual automatizado.</p>
         </div>
-        <a href="#acesso" className="mt-8 inline-flex justify-center rounded-full bg-background px-6 py-4 font-bold text-foreground transition-transform hover:scale-[1.03]">Quero essas {horas}h de volta →</a>
+        <a href={OFFICIAL} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex justify-center rounded-full bg-background px-6 py-4 font-bold text-foreground transition-transform hover:scale-[1.03]">Quero essas {horas}h de volta →</a>
       </div>
     </div>
   );
@@ -78,7 +80,7 @@ export function Quiz() {
             <h3 className="mb-3 text-3xl font-bold">{rec.t}</h3>
             <p className="mb-8 text-muted-foreground">{rec.d}</p>
             <div className="flex flex-col items-center gap-4">
-              <MagneticButton href="#acesso">{rec.cta} →</MagneticButton>
+              <MagneticButton href={OFFICIAL}>{rec.cta} →</MagneticButton>
               <button onClick={() => { setStep(0); setAns([]); }} className="text-sm text-muted-foreground underline">Refazer</button>
             </div>
           </motion.div>

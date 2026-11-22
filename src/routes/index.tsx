@@ -6,7 +6,7 @@ import { Mascot } from "@/components/landing/Mascot";
 import { HeroMock } from "@/components/landing/HeroMock";
 import { OrbitHero } from "@/components/landing/OrbitHero";
 import logo from "@/assets/mousehot-logo.webp.asset.json";
-import { RoiCalculator, Quiz, BeforeAfter, AccessForm } from "@/components/landing/Interactive";
+import { RoiCalculator, Quiz, BeforeAfter } from "@/components/landing/Interactive";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/")({
@@ -25,6 +25,8 @@ export const Route = createFileRoute("/")({
 
 const headline = ["Sua", "operação", "digital", "em", "um", "só", "lugar."];
 
+const OFFICIAL = "https://mausehot.vercel.app";
+
 function Nav() {
   const { scrollY } = useScroll();
   const [small, setSmall] = useState(false);
@@ -39,7 +41,7 @@ function Nav() {
           <a href="#calculadora" className="hover:text-foreground">Calculadora</a>
           <a href="#faq" className="hover:text-foreground">FAQ</a>
         </div>
-        <a href="#acesso" className="rounded-full bg-gradient-hot px-5 py-2.5 text-sm font-bold text-primary-foreground">Criar conta grátis</a>
+        <a href={OFFICIAL} target="_blank" rel="noopener noreferrer" className="rounded-full bg-gradient-hot px-5 py-2.5 text-sm font-bold text-primary-foreground">Criar conta grátis</a>
       </motion.nav>
     </motion.header>
   );
@@ -70,7 +72,7 @@ function Hero() {
           </Reveal>
           <Reveal delay={0.75}>
             <div className="mt-9 flex flex-wrap gap-4">
-              <MagneticButton href="#acesso">Criar minha conta →</MagneticButton>
+              <MagneticButton href={OFFICIAL}>Criar minha conta →</MagneticButton>
               <MagneticButton href="#como" variant="ghost">Ver como funciona</MagneticButton>
             </div>
             <p className="mt-5 text-sm text-muted-foreground">Teste de 15 minutos por convite · Preparo de mídia no navegador</p>
@@ -177,7 +179,17 @@ const tools = [
 ];
 
 function StoriesMock() {
-  const stories = ["08:00 · Bom dia + enquete", "12:00 · Prévia do conteúdo", "18:00 · Chamada pro link", "21:00 · Caixinha de perguntas"];
+  const stories = [
+    { t: "08:00 · Bom dia + enquete", s: "🔗 Figurinha de link" },
+    { t: "12:00 · Prévia do conteúdo", s: "@ Menção marcada" },
+    { t: "18:00 · Chamada pro link", s: "🔗 Link + #hashtag" },
+    { t: "21:00 · Caixinha de perguntas", s: "# Hashtag do nicho" },
+  ];
+  const stickers = [
+    { e: "🔗", l: "Link", x: "12%", y: "30%" },
+    { e: "@", l: "Menção", x: "52%", y: "48%" },
+    { e: "#", l: "Hashtag", x: "18%", y: "64%" },
+  ];
   return (
     <div className="grid items-center gap-10 md:grid-cols-2">
       <Reveal>
@@ -187,6 +199,14 @@ function StoriesMock() {
               className="relative aspect-[9/16] w-28 overflow-hidden rounded-3xl border border-border bg-card p-2 sm:w-36">
               <div className="flex gap-1">{[0, 1, 2].map((k) => <div key={k} className="h-1 flex-1 overflow-hidden rounded bg-muted"><motion.div className="h-full bg-foreground" animate={{ width: ["0%", "100%"] }} transition={{ duration: 3, delay: k * 3, repeat: Infinity, repeatDelay: 6 }} /></div>)}</div>
               <div className="mt-2 flex items-center gap-1.5"><img src={logo.url} alt="" className="h-5 w-5 rounded-full" /><span className="text-[10px] font-bold">@dark_0{i + 1}</span></div>
+              {stickers.map((st, k) => (
+                <motion.div key={st.l} className="absolute flex items-center gap-1 rounded-full bg-foreground/90 px-1.5 py-0.5 text-[8px] font-bold text-background shadow sm:text-[9px]"
+                  style={{ left: st.x, top: st.y }}
+                  initial={{ scale: 0, rotate: -20 }} animate={{ scale: [0, 1.15, 1], rotate: 0, opacity: [0, 1, 1, 0] }}
+                  transition={{ duration: 2.2, delay: 1 + k * 2.2 + i * 0.5, repeat: Infinity, repeatDelay: 4.4, times: [0, 0.15, 0.85, 1] }}>
+                  <span>{st.e}</span>{st.l}
+                </motion.div>
+              ))}
               <div className="absolute inset-x-2 bottom-3 rounded-xl bg-gradient-hot p-2 text-center text-[10px] font-bold text-primary-foreground">Agendado ✓</div>
             </motion.div>
           ))}
@@ -194,14 +214,70 @@ function StoriesMock() {
       </Reveal>
       <div className="space-y-3">
         {stories.map((t, i) => (
-          <Reveal key={t} delay={i * 0.08}>
-            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
-              <span className="font-semibold">{t}</span>
-              <span className="rounded-full bg-primary/15 px-3 py-1 text-xs font-bold text-primary">Agendado</span>
+          <Reveal key={t.t} delay={i * 0.08}>
+            <div className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4">
+              <div>
+                <span className="font-semibold">{t.t}</span>
+                <p className="mt-1 text-xs font-bold text-primary">{t.s}</p>
+              </div>
+              <span className="shrink-0 rounded-full bg-primary/15 px-3 py-1 text-xs font-bold text-primary">Agendado</span>
+            </div>
+          </Reveal>
+        ))}
+        <Reveal delay={0.35}>
+          <p className="pt-1 text-sm text-muted-foreground">Cada Story sai com <strong className="text-foreground">figurinha de link</strong>, <strong className="text-foreground">menção</strong> e <strong className="text-foreground">hashtag</strong> — tudo definido na hora de agendar.</p>
+        </Reveal>
+      </div>
+    </div>
+  );
+}
+
+function ReelsMock() {
+  const feats = [
+    { e: "🖼️", t: "Capa do Reel", d: "Escolha a capa que aparece no feed de cada perfil." },
+    { e: "✍️", t: "Legenda", d: "Texto pronto por conta, sem copiar e colar na mão." },
+    { e: "#️⃣", t: "Hashtags", d: "Conjuntos de hashtags por nicho, aplicados no agendamento." },
+    { e: "🛡️", t: "Mais segurança", d: "Publicação pela API oficial da Meta: menos risco de queda de conta." },
+  ];
+  return (
+    <div className="grid items-center gap-10 md:grid-cols-2">
+      <div className="order-2 space-y-3 md:order-1">
+        {feats.map((f, i) => (
+          <Reveal key={f.t} delay={i * 0.08}>
+            <div className="flex items-start gap-4 rounded-2xl border border-border bg-card p-4">
+              <span className="text-2xl">{f.e}</span>
+              <div>
+                <p className="font-bold">{f.t}</p>
+                <p className="mt-0.5 text-sm text-muted-foreground">{f.d}</p>
+              </div>
             </div>
           </Reveal>
         ))}
       </div>
+      <Reveal className="order-1 md:order-2">
+        <div className="mx-auto w-64">
+          <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+            className="relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-glow">
+            <div className="relative aspect-[9/16] bg-gradient-to-b from-primary/30 via-card to-background p-3">
+              <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
+                className="absolute top-3 right-3 rounded-full bg-foreground/90 px-2.5 py-1 text-[10px] font-bold text-background">🖼️ Capa definida</motion.div>
+              <div className="mt-8 flex items-center gap-1.5"><img src={logo.url} alt="" className="h-6 w-6 rounded-full" /><span className="text-[11px] font-bold">@dark_01</span></div>
+              <div className="absolute inset-x-3 bottom-3 space-y-2">
+                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="rounded-xl bg-background/70 p-2 text-[10px] font-semibold backdrop-blur">
+                  Legenda: 3 erros que travam sua operação no orgânico…
+                </motion.p>
+                <div className="flex flex-wrap gap-1">
+                  {["#trafegoorganico", "#rendadigital", "#mousehot"].map((h, k) => (
+                    <motion.span key={h} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 1.3 + k * 0.15, type: "spring", stiffness: 300 }}
+                      className="rounded-full bg-primary/20 px-2 py-0.5 text-[9px] font-bold text-primary">{h}</motion.span>
+                  ))}
+                </div>
+                <div className="rounded-xl bg-gradient-hot p-2 text-center text-[10px] font-bold text-primary-foreground">Reel agendado · 18:00 ✓</div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </Reveal>
     </div>
   );
 }
@@ -209,14 +285,14 @@ function StoriesMock() {
 const faqs = [
   ["Quanto custa?", "A MouseHot está em fase de testes. Quem entra agora usa antes de todo mundo e garante condição de fundador quando os planos forem divulgados."],
   ["A criação de contas é automática mesmo?", "Sim. A ferramenta cria várias contas do Instagram no automático para você montar a base da operação e escalar no orgânico."],
-  ["Dá para agendar Stories, além de Reels?", "Sim. Cada conta tem fila própria de Reels e Stories, com dia, horário e histórico do que foi publicado."],
+  ["Dá para agendar Stories, além de Reels?", "Sim. Cada conta tem fila própria de Reels e Stories, com dia, horário e histórico. O Story sai com figurinha de link, menção e hashtag; o Reel sai com capa, legenda e hashtags."],
   ["Como funciona a Fazenda de Celulares?", "Você conecta vários celulares via USB a um computador Windows e opera todos a partir do mesmo painel."],
   ["Funciona para agência e vários clientes?", "Você organiza contas profissionais autorizadas, com bibliotecas e agendas por perfil. As condições para agências ainda estão em definição."],
   ["Meus dados e perfis ficam seguros?", "A conexão do Instagram usa a autorização oficial da Meta e o preparo de mídia acontece no seu navegador."],
   ["Preciso de conta profissional no Instagram?", "Sim, para programar publicações no Automatic Post. As ferramentas de preparo funcionam sem conectar perfil."],
   ["Meus vídeos do Google Drive precisam ficar públicos?", "Não. A pasta continua privada: compartilhe com a identidade indicada pela MouseHot e vincule à biblioteca da conta."],
   ["Como funciona o convite de 15 minutos?", "O convite vale uma vez e vence 15 minutos após gerado. Ao iniciar, você tem 15 minutos para testar as ferramentas de preparo."],
-  ["Posso criar uma conta sem convite?", "Sim. Crie a conta no fim da página, confirme o e-mail e aguarde a aprovação para entrar no painel."],
+  ["Posso criar uma conta sem convite?", "Sim. Ao clicar em Criar conta, você é levado à página oficial da MouseHot, cria sua conta, confirma o e-mail e aguarda a aprovação para entrar no painel."],
 ];
 
 function ExitModal() {
@@ -238,7 +314,8 @@ function ExitModal() {
             <div className="mx-auto mb-2 flex justify-center"><Mascot size={100} /></div>
             <h3 className="text-3xl font-bold">Antes de ir…</h3>
             <p className="mt-3 mb-6 text-muted-foreground">Garanta sua vaga no acesso antecipado e trave o preço de fundador.</p>
-            <AccessForm />
+            <a href={OFFICIAL} target="_blank" rel="noopener noreferrer" className="block rounded-full bg-gradient-hot px-6 py-4 font-bold text-primary-foreground shadow-glow transition-transform hover:scale-[1.02]">Criar minha conta na MouseHot →</a>
+            <p className="mt-3 text-xs text-muted-foreground">Você será levado à página oficial para criar sua conta.</p>
           </motion.div>
         </motion.div>
       )}
@@ -277,8 +354,12 @@ function Index() {
         </div>
       </Section>
 
-      <Section eyebrow="Stories agendados" title={<>Perfil quente o dia inteiro, <span className="text-gradient-hot">sem você abrir o app.</span></>} sub="Programe a sequência de Stories de cada conta e mantenha o tráfego rodando de manhã à noite." alt>
+      <Section eyebrow="Stories agendados" title={<>Perfil quente o dia inteiro, <span className="text-gradient-hot">sem você abrir o app.</span></>} sub="Programe a sequência de Stories de cada conta — com figurinha de link, menção e hashtag — e mantenha o tráfego rodando de manhã à noite." alt>
         <StoriesMock />
+      </Section>
+
+      <Section eyebrow="Reels completos" title={<>Reel agendado com capa, legenda e hashtag. <span className="text-gradient-hot">Do jeito que vende.</span></>} sub="Nada de post genérico: cada Reel sai completo, com a cara do perfil, e publicado pelo caminho oficial — mais segurança e menos risco de queda de conta.">
+        <ReelsMock />
       </Section>
 
       <Section eyebrow="Por dentro do painel" title="Veja a fila rodando ao vivo." sub="Clique em “+ Agendar” e acompanhe o post percorrer a fila.">
@@ -311,9 +392,9 @@ function Index() {
         <Reveal><Quiz /></Reveal>
       </Section>
 
-      <Section eyebrow="Segurança" title="Escala sem risco para suas contas." alt>
+      <Section eyebrow="Segurança" title={<>Mais segurança, <span className="text-gradient-hot">menos risco de queda de conta.</span></>} sub="Escala de verdade só funciona se a conta continuar de pé. Por isso cada publicação segue o caminho oficial." alt>
         <div className="grid gap-5 md:grid-cols-3">
-          {[["🔒", "API oficial da Meta", "Conexão aprovada, sem automação suspeita nem risco de bloqueio."], ["☁️", "Drive privado", "Sua mídia fica na sua conta. Nós nunca a armazenamos."], ["⚡", "Processado no navegador", "Exportação local, rápida e sem upload de arquivos pesados."]].map(([e = "", t = "", d = ""], i) => (
+          {[["🔒", "API oficial da Meta", "Publicação pela conexão aprovada da Meta: sem automação suspeita e com muito menos risco de bloqueio ou queda de conta."], ["☁️", "Drive privado", "Sua mídia fica na sua conta. Nós nunca a armazenamos."], ["⚡", "Processado no navegador", "Exportação local, rápida e sem upload de arquivos pesados."]].map(([e = "", t = "", d = ""], i) => (
             <Reveal key={t} delay={i * 0.08}><TiltCard className="h-full"><div className="text-3xl">{e}</div><h3 className="mt-4 text-xl font-bold">{t}</h3><p className="mt-2 text-muted-foreground">{d}</p></TiltCard></Reveal>
           ))}
         </div>
@@ -343,7 +424,8 @@ function Index() {
             <Eyebrow>Vagas do acesso antecipado limitadas</Eyebrow>
             <h2 className="mt-5 text-[clamp(2.4rem,5vw,4.2rem)] font-extrabold leading-[1]">Sua próxima operação começa com <span className="text-gradient-hot">mais controle.</span></h2>
             <p className="mt-4 mb-8 text-lg text-muted-foreground">Mais contas postando viram tráfego. Tráfego vira venda. Crie sua conta e dê o primeiro passo hoje.</p>
-            <AccessForm />
+            <a href={OFFICIAL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-gradient-hot px-8 py-5 text-lg font-bold text-primary-foreground shadow-glow transition-transform hover:scale-[1.03]">Criar minha conta na página oficial →</a>
+            <p className="mt-3 text-sm text-muted-foreground">O cadastro acontece na página oficial da MouseHot.</p>
           </Reveal>
         </div>
       </section>
@@ -351,7 +433,7 @@ function Index() {
       <footer className="border-t border-border py-10 pb-28 text-center text-sm text-muted-foreground md:pb-10">© 2026 MouseHot · Sua operação digital em um só lugar.</footer>
 
       <div className="fixed inset-x-4 bottom-4 z-40 md:hidden">
-        <a href="#acesso" className="block rounded-full bg-gradient-hot py-4 text-center font-bold text-primary-foreground shadow-glow">Criar minha conta</a>
+        <a href={OFFICIAL} target="_blank" rel="noopener noreferrer" className="block rounded-full bg-gradient-hot py-4 text-center font-bold text-primary-foreground shadow-glow">Criar minha conta</a>
       </div>
       <ExitModal />
     </main>
