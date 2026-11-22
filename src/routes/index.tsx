@@ -246,7 +246,7 @@ function Index() {
 
       <Section eyebrow="Segurança" title="Escala sem risco para suas contas." alt>
         <div className="grid gap-5 md:grid-cols-3">
-          {[["🔒", "API oficial da Meta", "Conexão aprovada, sem automação suspeita nem risco de bloqueio."], ["☁️", "Drive privado", "Sua mídia fica na sua conta. Nós nunca a armazenamos."], ["⚡", "Processado no navegador", "Exportação local, rápida e sem upload de arquivos pesados."]].map(([e, t, d], i) => (
+          {[["🔒", "API oficial da Meta", "Conexão aprovada, sem automação suspeita nem risco de bloqueio."], ["☁️", "Drive privado", "Sua mídia fica na sua conta. Nós nunca a armazenamos."], ["⚡", "Processado no navegador", "Exportação local, rápida e sem upload de arquivos pesados."]].map(([e = "", t = "", d = ""], i) => (
             <Reveal key={t} delay={i * 0.08}><TiltCard className="h-full"><div className="text-3xl">{e}</div><h3 className="mt-4 text-xl font-bold">{t}</h3><p className="mt-2 text-muted-foreground">{d}</p></TiltCard></Reveal>
           ))}
         </div>
@@ -255,7 +255,7 @@ function Index() {
       <Section id="faq" eyebrow="Dúvidas" title="Tudo que te impede de começar hoje.">
         <Reveal className="mx-auto max-w-3xl">
           <Accordion type="single" collapsible className="space-y-3">
-            {faqs.map(([q, a]) => (
+            {faqs.map(([q = "", a = ""]) => (
               <AccordionItem key={q} value={q} className="rounded-2xl border border-border bg-card px-6">
                 <AccordionTrigger className="text-left text-lg font-bold hover:no-underline">{q}</AccordionTrigger>
                 <AccordionContent className="text-base text-muted-foreground">{a}</AccordionContent>
