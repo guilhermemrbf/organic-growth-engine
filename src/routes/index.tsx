@@ -4,16 +4,18 @@ import { useEffect, useRef, useState } from "react";
 import { Reveal, Counter, MagneticButton, TiltCard, Eyebrow } from "@/components/landing/fx";
 import { Mascot } from "@/components/landing/Mascot";
 import { HeroMock } from "@/components/landing/HeroMock";
+import { OrbitHero } from "@/components/landing/OrbitHero";
+import logo from "@/assets/mousehot-logo.webp.asset.json";
 import { RoiCalculator, Quiz, BeforeAfter, AccessForm } from "@/components/landing/Interactive";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MouseHot — Opere 10 perfis com o esforço de 1" },
-      { name: "description", content: "SaaS para escalar operações orgânicas no Instagram: análise de perfis, mídia em lote e agendamento de Reels." },
-      { property: "og:title", content: "MouseHot — Escale seu orgânico no Instagram" },
-      { property: "og:description", content: "Do perfil certo ao Reel no ar. Opere 10 perfis com o esforço de 1." },
+      { title: "MouseHot — Sua operação digital em um só lugar" },
+      { name: "description", content: "Crie contas no automático, pesquise perfis, prepare mídia em lote e agende Reels e Stories. Escale no orgânico e transforme tráfego em venda." },
+      { property: "og:title", content: "MouseHot — Sua operação digital em um só lugar" },
+      { property: "og:description", content: "Contas, conteúdo, Reels e Stories no automático. Tráfego orgânico que vira venda." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -21,7 +23,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const headline = ["Opere", "10", "perfis", "com", "o", "esforço", "de", "1."];
+const headline = ["Sua", "operação", "digital", "em", "um", "só", "lugar."];
 
 function Nav() {
   const { scrollY } = useScroll();
@@ -30,9 +32,10 @@ function Nav() {
   return (
     <motion.header className="fixed inset-x-0 top-0 z-50 flex justify-center px-4" animate={{ paddingTop: small ? 10 : 20 }}>
       <motion.nav animate={{ maxWidth: small ? 900 : 1240 }} className="flex w-full items-center justify-between rounded-full border border-border bg-background/70 px-5 py-3 backdrop-blur-xl">
-        <a href="#" className="flex items-center gap-2 font-display text-xl font-extrabold"><span className="h-7 w-7 rounded-full bg-gradient-hot" />MouseHot</a>
+        <a href="#" className="flex items-center gap-2 font-display text-xl font-extrabold"><img src={logo.url} alt="" className="h-8 w-8 rounded-full" />Mouse<span className="-ml-2 text-primary">Hot</span></a>
         <div className="hidden gap-7 text-sm font-semibold text-muted-foreground md:flex">
           <a href="#como" className="hover:text-foreground">Como funciona</a>
+          <a href="#ferramentas" className="hover:text-foreground">Ferramentas</a>
           <a href="#calculadora" className="hover:text-foreground">Calculadora</a>
           <a href="#faq" className="hover:text-foreground">FAQ</a>
         </div>
@@ -53,29 +56,29 @@ function Hero() {
       <motion.div style={{ y: blob }} className="absolute -top-40 left-1/2 h-[600px] w-[600px] -translate-x-1/2 rounded-full bg-primary/25 blur-[140px]" />
       <div className="relative mx-auto grid max-w-[1240px] items-center gap-14 px-6 lg:grid-cols-12">
         <div className="lg:col-span-6">
-          <Reveal><Eyebrow>Acesso antecipado aberto</Eyebrow></Reveal>
+          <Reveal><Eyebrow>Operação orgânica em escala</Eyebrow></Reveal>
           <h1 className="mt-6 text-[clamp(3rem,7vw,5.8rem)] font-extrabold leading-[0.95]">
             {headline.map((w, i) => (
-              <motion.span key={i} className={`mr-[0.22em] inline-block ${w === "10" || w === "1." ? "text-gradient-hot" : ""}`}
+              <motion.span key={i} className={`mr-[0.22em] inline-block ${w === "digital" || w === "lugar." ? "text-gradient-hot" : ""}`}
                 initial={{ opacity: 0, y: 40, filter: "blur(8px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ delay: 0.1 + i * 0.07, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>{w}</motion.span>
             ))}
           </h1>
           <Reveal delay={0.6}>
             <p className="mt-7 max-w-[34rem] text-lg leading-relaxed text-muted-foreground md:text-xl">
-              O MouseHot encontra o que viraliza no seu nicho, prepara a mídia em lote e agenda os Reels de todos os seus perfis. <strong className="text-foreground">Seu orgânico no piloto automático.</strong>
+              Organize a escala da sua operação no orgânico. Crie contas no automático, pesquise perfis, prepare vídeos em lote e agende Reels e Stories com uma biblioteca para cada conta. <strong className="text-foreground">Mais contas postando = mais tráfego = mais venda.</strong>
             </p>
           </Reveal>
           <Reveal delay={0.75}>
             <div className="mt-9 flex flex-wrap gap-4">
-              <MagneticButton href="#acesso">Escalar minha operação grátis →</MagneticButton>
-              <MagneticButton href="#como" variant="ghost">▶ Ver em 60 segundos</MagneticButton>
+              <MagneticButton href="#acesso">Criar minha conta →</MagneticButton>
+              <MagneticButton href="#como" variant="ghost">Ver como funciona</MagneticButton>
             </div>
-            <p className="mt-5 text-sm text-muted-foreground">Sem cartão · Teste em 15 min · Mídia processada no seu navegador</p>
+            <p className="mt-5 text-sm text-muted-foreground">Teste de 15 minutos por convite · Preparo de mídia no navegador</p>
           </Reveal>
         </div>
         <motion.div style={{ y }} className="relative lg:col-span-6">
-          <div className="absolute -top-16 -left-10 z-10 hidden md:block"><Mascot size={130} /></div>
-          <HeroMock />
+          <OrbitHero />
+          <p className="mt-2 text-center text-sm text-muted-foreground">Tudo gira em torno de uma operação mais organizada.</p>
         </motion.div>
       </div>
     </section>
@@ -83,7 +86,7 @@ function Hero() {
 }
 
 function Marquee() {
-  const items = ["Agências", "Gestores de orgânico", "Infoprodutores", "Perfis dark", "Lojas locais", "Criadores", "Social media", "Operações multi-perfil"];
+  const items = ["Contas dark", "Spam no Hot", "Criação automática de contas", "Reels agendados", "Stories agendados", "Fazenda de celulares", "Tráfego orgânico", "Infoprodutos", "Agências"];
   return (
     <div className="overflow-hidden border-y border-border bg-card/50 py-6">
       <div className="flex w-max animate-marquee gap-12">
@@ -94,10 +97,10 @@ function Marquee() {
 }
 
 const steps = [
-  { n: "01", t: "Descubra o que já funciona", dor: "Você posta no escuro e torce.", res: "Encontre os Reels que mais performam no nicho em 2 minutos.", vis: ["@concorrente_a · 1,2M views", "@concorrente_b · 860k views", "@concorrente_c · 540k views"] },
-  { n: "02", t: "Monte seu funil de conteúdo", dor: "Conteúdo solto não vende.", res: "Organize atração, conexão e venda por perfil, visualmente.", vis: ["Topo · 12 Reels", "Meio · 6 carrosséis", "Fundo · 3 ofertas"] },
-  { n: "03", t: "Prepare mídia em lote", dor: "Horas editando um a um.", res: "Corte, legende e exporte 50 vídeos de uma vez, no navegador.", vis: ["lote_semana.zip · 48 arquivos", "Legendas aplicadas ✓", "Formato 9:16 ✓"] },
-  { n: "04", t: "Agende e esqueça", dor: "Post esquecido = alcance perdido.", res: "Fila da semana de todos os perfis em uma tela, publicando sozinha.", vis: ["Seg 18h · @studiofit", "Ter 12h · @chefdacasa", "Qua 20h · @viagemlow"] },
+  { n: "01", t: "Crie as contas e escolha os perfis", dor: "Criar conta por conta, na mão, o dia inteiro.", res: "Crie várias contas do Instagram no automático e compare perfis e subnichos no Instagram Intelligence antes de investir.", vis: ["Conta @dark_01 · criada ✓", "Conta @dark_02 · criada ✓", "Perfil referência · 1,2M views"] },
+  { n: "02", t: "Do arquivo original à prévia com sua marca", dor: "Várias cópias do mesmo vídeo em pastas diferentes.", res: "Guarde o original, exporte a versão com sua marca e crie a prévia para divulgar — tudo em lote, no navegador.", vis: ["original.mp4", "com-marca.mp4", "previa.mp4"] },
+  { n: "03", t: "Uma biblioteca para cada conta", dor: "Links e vídeos perdidos em conversas e planilhas.", res: "Reels e Stories separados por perfil. Importe uma pasta privada do Google Drive em um clique.", vis: ["Pasta no Google Drive", "Reels da conta", "Stories da conta"] },
+  { n: "04", t: "Agende Reels e Stories e acompanhe", dor: "Horários conferidos conta por conta.", res: "Escolha dias e horários, revise a fila e veja o que foi publicado em cada perfil. Tráfego rodando enquanto você escala.", vis: ["Reel da manhã · 09:00 · Revisado", "Story · 12:00 · Agendado", "Reel da noite · 18:00 · Na fila"] },
 ];
 
 function Steps() {
@@ -156,18 +159,64 @@ function Section({ id, eyebrow, title, sub, children, alt }: { id?: string; eyeb
 }
 
 const personas = [
-  { e: "📈", t: "Gestor de orgânico", d: "Atenda o dobro de clientes sem contratar mais um editor." },
-  { e: "🏢", t: "Agências", d: "Padronize a operação de 20+ perfis com uma equipe enxuta." },
-  { e: "🎯", t: "Infoprodutores", d: "Mantenha o perfil aquecido todo dia enquanto foca no lançamento." },
-  { e: "🧩", t: "Multi-perfil", d: "Rode perfis de nicho em paralelo, cada um com sua biblioteca." },
+  { e: "🐭", t: "Operação dark / Hot", d: "Suba dezenas de contas dark em paralelo e mantenha todas postando todo dia." },
+  { e: "🎯", t: "Infoprodutores", d: "Tráfego orgânico constante para a oferta, sem pagar anúncio." },
+  { e: "🏢", t: "Agências", d: "Bibliotecas e agendas por perfil para vários clientes com equipe enxuta." },
+  { e: "📲", t: "Outros nichos digitais", d: "Mesma máquina de escala para qualquer nicho do digital." },
 ];
 
+const tools = [
+  { e: "⚡", t: "Criação automática de contas", d: "Crie várias contas do Instagram no automático e tenha a base pronta para escalar." },
+  { e: "🔎", t: "Instagram Intelligence", d: "Pesquise e compare perfis e subnichos antes de investir em produção." },
+  { e: "🧭", t: "Funil visual", d: "Desenhe o caminho do primeiro contato até a venda, por campanha." },
+  { e: "🎬", t: "Preparo em lote", d: "Original, versão com marca e prévia — dezenas de vídeos de uma vez, no navegador." },
+  { e: "📅", t: "Automatic Post · Reels", d: "Fila de Reels de todos os perfis, com dia, horário e histórico." },
+  { e: "⭕", t: "Stories agendados", d: "Sequências de Stories programadas por conta para manter o perfil quente." },
+  { e: "📱", t: "Fazenda de celulares", d: "Vários celulares conectados via USB a um computador Windows, operados de um só painel." },
+  { e: "🗂️", t: "Biblioteca por conta", d: "Pasta privada do Google Drive vinculada a cada perfil, sem deixar nada público." },
+];
+
+function StoriesMock() {
+  const stories = ["08:00 · Bom dia + enquete", "12:00 · Prévia do conteúdo", "18:00 · Chamada pro link", "21:00 · Caixinha de perguntas"];
+  return (
+    <div className="grid items-center gap-10 md:grid-cols-2">
+      <Reveal>
+        <div className="flex justify-center gap-4">
+          {[0, 1, 2].map((i) => (
+            <motion.div key={i} animate={{ y: [0, i % 2 ? 12 : -12, 0] }} transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut" }}
+              className="relative aspect-[9/16] w-28 overflow-hidden rounded-3xl border border-border bg-card p-2 sm:w-36">
+              <div className="flex gap-1">{[0, 1, 2].map((k) => <div key={k} className="h-1 flex-1 overflow-hidden rounded bg-muted"><motion.div className="h-full bg-foreground" animate={{ width: ["0%", "100%"] }} transition={{ duration: 3, delay: k * 3, repeat: Infinity, repeatDelay: 6 }} /></div>)}</div>
+              <div className="mt-2 flex items-center gap-1.5"><img src={logo.url} alt="" className="h-5 w-5 rounded-full" /><span className="text-[10px] font-bold">@dark_0{i + 1}</span></div>
+              <div className="absolute inset-x-2 bottom-3 rounded-xl bg-gradient-hot p-2 text-center text-[10px] font-bold text-primary-foreground">Agendado ✓</div>
+            </motion.div>
+          ))}
+        </div>
+      </Reveal>
+      <div className="space-y-3">
+        {stories.map((t, i) => (
+          <Reveal key={t} delay={i * 0.08}>
+            <div className="flex items-center justify-between rounded-2xl border border-border bg-card p-4">
+              <span className="font-semibold">{t}</span>
+              <span className="rounded-full bg-primary/15 px-3 py-1 text-xs font-bold text-primary">Agendado</span>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const faqs = [
-  ["Preciso saber editar vídeo?", "Não. Você escolhe o modelo e o MouseHot aplica corte, formato e legenda em lote. Se você sabe arrastar um arquivo, sabe usar."],
-  ["É seguro conectar meu Instagram?", "Sim. Usamos a API oficial da Meta e sua mídia fica no seu Drive privado. Nada de senha compartilhada, nada de risco de bloqueio."],
-  ["Funciona para quantos perfis?", "Quantos você operar. Cada perfil tem biblioteca, funil e fila próprios — é exatamente aí que a escala acontece."],
-  ["Quanto custa?", "Durante o acesso antecipado você entra grátis e trava um preço de fundador quando os planos abrirem. As vagas são limitadas para garantirmos suporte próximo."],
-  ["E se eu não gostar?", "Você não informa cartão. Se não economizar horas na primeira semana, simplesmente não continua — sem burocracia."],
+  ["Quanto custa?", "A MouseHot está em fase de testes. Quem entra agora usa antes de todo mundo e garante condição de fundador quando os planos forem divulgados."],
+  ["A criação de contas é automática mesmo?", "Sim. A ferramenta cria várias contas do Instagram no automático para você montar a base da operação e escalar no orgânico."],
+  ["Dá para agendar Stories, além de Reels?", "Sim. Cada conta tem fila própria de Reels e Stories, com dia, horário e histórico do que foi publicado."],
+  ["Como funciona a Fazenda de Celulares?", "Você conecta vários celulares via USB a um computador Windows e opera todos a partir do mesmo painel."],
+  ["Funciona para agência e vários clientes?", "Você organiza contas profissionais autorizadas, com bibliotecas e agendas por perfil. As condições para agências ainda estão em definição."],
+  ["Meus dados e perfis ficam seguros?", "A conexão do Instagram usa a autorização oficial da Meta e o preparo de mídia acontece no seu navegador."],
+  ["Preciso de conta profissional no Instagram?", "Sim, para programar publicações no Automatic Post. As ferramentas de preparo funcionam sem conectar perfil."],
+  ["Meus vídeos do Google Drive precisam ficar públicos?", "Não. A pasta continua privada: compartilhe com a identidade indicada pela MouseHot e vincule à biblioteca da conta."],
+  ["Como funciona o convite de 15 minutos?", "O convite vale uma vez e vence 15 minutos após gerado. Ao iniciar, você tem 15 minutos para testar as ferramentas de preparo."],
+  ["Posso criar uma conta sem convite?", "Sim. Crie a conta no fim da página, confirme o e-mail e aguarde a aprovação para entrar no painel."],
 ];
 
 function ExitModal() {
@@ -206,7 +255,7 @@ function Index() {
 
       <section className="py-20 md:py-28">
         <div className="mx-auto grid max-w-[1240px] grid-cols-2 gap-8 px-6 md:grid-cols-4">
-          {[{ v: 6, s: "h", l: "recuperadas por semana, por pessoa" }, { v: 10, s: "x", l: "mais perfis por operador" }, { v: 50, s: "", l: "vídeos exportados por lote" }, { v: 0, s: "", l: "posts esquecidos na fila" }].map((k, i) => (
+          {[{ v: 10, s: "x", l: "mais contas por operador" }, { v: 6, s: "h", l: "recuperadas por semana" }, { v: 50, s: "", l: "vídeos exportados por lote" }, { v: 0, s: "", l: "Reels ou Stories esquecidos" }].map((k, i) => (
             <Reveal key={k.l} delay={i * 0.08} className="border-l-2 border-primary pl-5">
               <p className="font-display text-6xl font-extrabold"><Counter to={k.v} suffix={k.s} /></p>
               <p className="mt-2 text-muted-foreground">{k.l}</p>
@@ -218,7 +267,25 @@ function Index() {
 
       <Steps />
 
-      <Section eyebrow="Pare de apagar incêndio" title={<>Do caos ao <span className="text-gradient-hot">controle</span> em uma tarde.</>} sub="Arraste e veja a diferença entre operar no improviso e operar com sistema." alt>
+      <Section id="ferramentas" eyebrow="Ferramentas" title={<>Tudo que sua operação usa, <span className="text-gradient-hot">no mesmo lugar.</span></>} sub="Cada ferramenta resolve uma etapa do orgânico — da criação da conta até o tráfego virar venda.">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {tools.map((t, i) => (
+            <Reveal key={t.t} delay={(i % 4) * 0.07}>
+              <TiltCard className="h-full"><div className="text-3xl">{t.e}</div><h3 className="mt-4 text-xl font-bold">{t.t}</h3><p className="mt-2 text-[15px] text-muted-foreground">{t.d}</p></TiltCard>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section eyebrow="Stories agendados" title={<>Perfil quente o dia inteiro, <span className="text-gradient-hot">sem você abrir o app.</span></>} sub="Programe a sequência de Stories de cada conta e mantenha o tráfego rodando de manhã à noite." alt>
+        <StoriesMock />
+      </Section>
+
+      <Section eyebrow="Por dentro do painel" title="Veja a fila rodando ao vivo." sub="Clique em “+ Agendar” e acompanhe o post percorrer a fila.">
+        <div className="mx-auto max-w-xl"><HeroMock /></div>
+      </Section>
+
+      <Section eyebrow="Pare de apagar incêndio" title={<>Pare de apagar incêndio. <span className="text-gradient-hot">Comece a operar.</span></>} sub="Quando a operação cresce, importa onde está cada arquivo, quem vai publicar e o que já saiu. Arraste e compare." alt>
         <Reveal><BeforeAfter /></Reveal>
       </Section>
 
@@ -226,7 +293,7 @@ function Index() {
         <Reveal><RoiCalculator /></Reveal>
       </Section>
 
-      <Section eyebrow="Para quem é" title="Feito para quem vive de orgânico." alt>
+      <Section eyebrow="Para quem é" title="Feito para quem escala no orgânico." alt>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {personas.map((p, i) => (
             <Reveal key={p.t} delay={i * 0.08}>
@@ -240,7 +307,7 @@ function Index() {
         </div>
       </Section>
 
-      <Section eyebrow="Seu ponto de partida" title="3 cliques para descobrir por onde começar.">
+      <Section eyebrow="Seu ponto de partida" title="Escolha seu ponto de partida.">
         <Reveal><Quiz /></Reveal>
       </Section>
 
@@ -274,17 +341,17 @@ function Index() {
           </div>
           <Reveal>
             <Eyebrow>Vagas do acesso antecipado limitadas</Eyebrow>
-            <h2 className="mt-5 text-[clamp(2.4rem,5vw,4.2rem)] font-extrabold leading-[1]">Sua próxima semana pode ter <span className="text-gradient-hot">6 horas a mais.</span></h2>
-            <p className="mt-4 mb-8 text-lg text-muted-foreground">Crie sua conta em 30 segundos e trave o preço de fundador.</p>
+            <h2 className="mt-5 text-[clamp(2.4rem,5vw,4.2rem)] font-extrabold leading-[1]">Sua próxima operação começa com <span className="text-gradient-hot">mais controle.</span></h2>
+            <p className="mt-4 mb-8 text-lg text-muted-foreground">Mais contas postando viram tráfego. Tráfego vira venda. Crie sua conta e dê o primeiro passo hoje.</p>
             <AccessForm />
           </Reveal>
         </div>
       </section>
 
-      <footer className="border-t border-border py-10 pb-28 text-center text-sm text-muted-foreground md:pb-10">© 2026 MouseHot · Escala para o orgânico.</footer>
+      <footer className="border-t border-border py-10 pb-28 text-center text-sm text-muted-foreground md:pb-10">© 2026 MouseHot · Sua operação digital em um só lugar.</footer>
 
       <div className="fixed inset-x-4 bottom-4 z-40 md:hidden">
-        <a href="#acesso" className="block rounded-full bg-gradient-hot py-4 text-center font-bold text-primary-foreground shadow-glow">Escalar minha operação grátis</a>
+        <a href="#acesso" className="block rounded-full bg-gradient-hot py-4 text-center font-bold text-primary-foreground shadow-glow">Criar minha conta</a>
       </div>
       <ExitModal />
     </main>

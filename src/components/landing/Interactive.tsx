@@ -44,7 +44,7 @@ export function RoiCalculator() {
 const quiz = [
   { q: "Quantos perfis você opera hoje?", o: ["1 a 2", "3 a 10", "Mais de 10"] },
   { q: "Onde você mais perde tempo?", o: ["Achar o que postar", "Preparar mídia", "Agendar e publicar"] },
-  { q: "Qual seu objetivo agora?", o: ["Crescer um perfil", "Escalar vários", "Montar agência"] },
+  { q: "Qual seu objetivo agora?", o: ["Subir contas dark", "Escalar vários perfis", "Montar agência"] },
 ];
 const recs: Record<string, { t: string; d: string; cta: string }> = {
   "Achar o que postar": { t: "Comece pela Análise de Perfis", d: "Descubra os formatos que já viralizam no seu nicho e replique em minutos.", cta: "Analisar meu nicho grátis" },
@@ -90,8 +90,8 @@ export function Quiz() {
 
 export function BeforeAfter() {
   const [pos, setPos] = useState(50);
-  const chaos = ["Planilha_final_v7.xlsx", "Drive sem pasta", "Post esquecido", "Print no WhatsApp", "Legenda perdida", "Horário errado"];
-  const order = ["Biblioteca por perfil", "Fila da semana pronta", "Lote exportado", "Publicação automática", "Métricas em 1 tela", "Zero post perdido"];
+  const chaos = ["Links perdidos no WhatsApp", "Vídeo duplicado em 5 pastas", "Conta criada na mão", "Story esquecido", "Planilha_v7.xlsx", "Horário conferido 1 a 1"];
+  const order = ["Perfis comparados antes", "Contas criadas no automático", "Mídia tratada em lote", "Biblioteca por conta", "Reels e Stories na fila", "Histórico em 1 painel"];
   return (
     <div className="relative h-[420px] select-none overflow-hidden rounded-[2rem] border border-border">
       <div className="absolute inset-0 bg-surface p-8 text-surface-foreground">
