@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "MouseHot — Sua operação digital em um só lugar" },
-      { name: "description", content: "Crie contas no automático, pesquise perfis, prepare mídia em lote e agende Reels e Stories. Escale no orgânico e transforme tráfego em venda." },
+      { name: "description", content: "Crie contas no automático, pesquise perfis, prepare mídia em lote, agende Reels e Stories e rastreie cada venda até o perfil que gerou. Escale no orgânico." },
       { property: "og:title", content: "MouseHot — Sua operação digital em um só lugar" },
       { property: "og:description", content: "Contas, conteúdo, Reels e Stories no automático. Tráfego orgânico que vira venda." },
       { property: "og:type", content: "website" },
@@ -67,7 +67,7 @@ function Hero() {
           </h1>
           <Reveal delay={0.6}>
             <p className="mt-7 max-w-[34rem] text-lg leading-relaxed text-muted-foreground md:text-xl">
-              Organize a escala da sua operação no orgânico. Crie contas no automático, pesquise perfis, prepare vídeos em lote e agende Reels e Stories com uma biblioteca para cada conta. <strong className="text-foreground">Mais contas postando = mais tráfego = mais venda.</strong>
+              Organize a escala da sua operação no orgânico. Crie contas no automático, pesquise perfis, prepare vídeos em lote e agende Reels e Stories com uma biblioteca para cada conta. <strong className="text-foreground">Mais contas postando = mais tráfego = mais venda</strong> — e cada venda rastreada até o perfil que gerou.
             </p>
           </Reveal>
           <Reveal delay={0.75}>
@@ -80,7 +80,7 @@ function Hero() {
         </div>
         <motion.div style={{ y }} className="relative lg:col-span-6">
           <OrbitHero />
-          <p className="mt-2 text-center text-sm text-muted-foreground">Tudo gira em torno de uma operação mais organizada.</p>
+          <p className="mt-2 text-center text-sm text-muted-foreground">Cada ponto é uma ferramenta girando em torno da sua operação.</p>
         </motion.div>
       </div>
     </section>
@@ -88,7 +88,7 @@ function Hero() {
 }
 
 function Marquee() {
-  const items = ["Contas dark", "Spam no Hot", "Criação automática de contas", "Reels agendados", "Stories agendados", "Fazenda de celulares", "Tráfego orgânico", "Infoprodutos", "Agências"];
+  const items = ["Contas dark", "Spam no Hot", "Criação automática de contas", "Reels agendados", "Stories agendados", "Rastreio de vendas", "Fazenda de celulares", "Tráfego orgânico", "Infoprodutos", "Agências"];
   return (
     <div className="overflow-hidden border-y border-border bg-card/50 py-6">
       <div className="flex w-max animate-marquee gap-12">
@@ -176,6 +176,7 @@ const tools = [
   { e: "⭕", t: "Stories agendados", d: "Sequências de Stories programadas por conta para manter o perfil quente." },
   { e: "📱", t: "Fazenda de celulares", d: "Vários celulares conectados via USB a um computador Windows, operados de um só painel." },
   { e: "🗂️", t: "Biblioteca por conta", d: "Pasta privada do Google Drive vinculada a cada perfil, sem deixar nada público." },
+  { e: "📈", t: "Rastreio de vendas", d: "Links rastreados por perfil e campanha, estilo UTMfy: veja exatamente de onde veio cada venda." },
 ];
 
 function StoriesMock() {
@@ -282,6 +283,66 @@ function ReelsMock() {
   );
 }
 
+function TrackerMock() {
+  const sales = [
+    { p: "@dark_01", o: "Story · 12:00 · figurinha de link", v: "R$ 97" },
+    { p: "@dark_03", o: "Bio · link rastreado", v: "R$ 197" },
+    { p: "@dark_02", o: "Reel · 18:00 · legenda com link", v: "R$ 47" },
+    { p: "@dark_01", o: "Story · 21:00 · menção", v: "R$ 97" },
+  ];
+  const bars = [
+    { p: "@dark_01", w: "86%", v: "R$ 1.240" },
+    { p: "@dark_02", w: "58%", v: "R$ 830" },
+    { p: "@dark_03", w: "34%", v: "R$ 490" },
+  ];
+  return (
+    <div className="grid items-center gap-10 md:grid-cols-2">
+      <Reveal>
+        <div className="rounded-[2rem] border border-border bg-card p-6 shadow-glow">
+          <div className="mb-4 flex items-center justify-between">
+            <p className="font-display text-lg font-bold">Vendas em tempo real</p>
+            <span className="flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-xs font-bold text-primary"><span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" /><span className="relative inline-flex h-2 w-2 rounded-full bg-primary" /></span>ao vivo</span>
+          </div>
+          <div className="space-y-2.5">
+            {sales.map((s, i) => (
+              <motion.div key={i} className="flex items-center justify-between gap-3 rounded-2xl bg-muted/60 p-3.5"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: [0, 1, 1, 0], x: [-30, 0, 0, -10] }}
+                transition={{ duration: 2.4, delay: 0.8 + i * 2.4, repeat: Infinity, repeatDelay: 7.2, times: [0, 0.12, 0.85, 1] }}>
+                <div>
+                  <p className="text-sm font-bold">{s.p} <span className="font-normal text-muted-foreground">· {s.o}</span></p>
+                  <p className="text-[11px] text-muted-foreground">utm_source={s.p.replace("@", "")} · venda atribuída ✓</p>
+                </div>
+                <span className="shrink-0 rounded-full bg-gradient-hot px-3 py-1 text-xs font-extrabold text-primary-foreground">+{s.v}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+      <Reveal delay={0.15}>
+        <div className="rounded-[2rem] border border-border bg-card p-6">
+          <p className="font-display text-lg font-bold">Vendas por perfil</p>
+          <p className="mt-1 text-sm text-muted-foreground">Últimos 7 dias · rastreado por link</p>
+          <div className="mt-6 space-y-5">
+            {bars.map((b, i) => (
+              <div key={b.p}>
+                <div className="mb-1.5 flex items-center justify-between text-sm"><span className="font-bold">{b.p}</span><span className="font-extrabold text-primary">{b.v}</span></div>
+                <div className="h-3 overflow-hidden rounded-full bg-muted">
+                  <motion.div className="h-full rounded-full bg-gradient-hot" initial={{ width: 0 }} whileInView={{ width: b.w }} viewport={{ once: true }} transition={{ duration: 1.1, delay: 0.3 + i * 0.2, ease: [0.22, 1, 0.36, 1] }} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 flex items-center justify-between rounded-2xl border border-primary/30 bg-primary/10 p-4">
+            <span className="text-sm font-semibold text-muted-foreground">Total rastreado</span>
+            <span className="font-display text-2xl font-extrabold text-gradient-hot">R$ 2.560</span>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  );
+}
+
 const faqs = [
   ["Quanto custa?", "A MouseHot está em fase de testes. Quem entra agora usa antes de todo mundo e garante condição de fundador quando os planos forem divulgados."],
   ["A criação de contas é automática mesmo?", "Sim. A ferramenta cria várias contas do Instagram no automático para você montar a base da operação e escalar no orgânico."],
@@ -291,6 +352,7 @@ const faqs = [
   ["Meus dados e perfis ficam seguros?", "A conexão do Instagram usa a autorização oficial da Meta e o preparo de mídia acontece no seu navegador."],
   ["Preciso de conta profissional no Instagram?", "Sim, para programar publicações no Automatic Post. As ferramentas de preparo funcionam sem conectar perfil."],
   ["Meus vídeos do Google Drive precisam ficar públicos?", "Não. A pasta continua privada: compartilhe com a identidade indicada pela MouseHot e vincule à biblioteca da conta."],
+  ["A MouseHot rastreia vendas?", "Sim. Cada link sai com rastreio, no estilo UTMfy, e o painel atribui cada venda ao perfil, ao conteúdo e à campanha que geraram. Você sabe exatamente onde escalar."],
   ["Como funciona o convite de 15 minutos?", "O convite vale uma vez e vence 15 minutos após gerado. Ao iniciar, você tem 15 minutos para testar as ferramentas de preparo."],
   ["Posso criar uma conta sem convite?", "Sim. Ao clicar em Criar conta, você é levado à página oficial da MouseHot, cria sua conta, confirma o e-mail e aguarda a aprovação para entrar no painel."],
 ];
@@ -360,6 +422,10 @@ function Index() {
 
       <Section eyebrow="Reels completos" title={<>Reel agendado com capa, legenda e hashtag. <span className="text-gradient-hot">Do jeito que vende.</span></>} sub="Nada de post genérico: cada Reel sai completo, com a cara do perfil, e publicado pelo caminho oficial — mais segurança e menos risco de queda de conta.">
         <ReelsMock />
+      </Section>
+
+      <Section eyebrow="Rastreio de vendas" title={<>Cada venda com dono: <span className="text-gradient-hot">perfil, conteúdo e campanha.</span></>} sub="Links rastreados no estilo UTMfy em cada Story, bio e Reel. O painel mostra exatamente qual perfil e qual conteúdo gerou cada venda — pare de escalar no escuro." alt>
+        <TrackerMock />
       </Section>
 
       <Section eyebrow="Por dentro do painel" title="Veja a fila rodando ao vivo." sub="Clique em “+ Agendar” e acompanhe o post percorrer a fila.">

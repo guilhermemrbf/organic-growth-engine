@@ -9,6 +9,12 @@ const labels = [
   { t: "Campanhas", d: "Funil do orgânico até a venda", x: 4, y: 50, orbit: 1 },
 ];
 
+// Nomes das ferramentas que giram junto com os pontinhos de cada órbita
+const orbitTools = [
+  ["Reels", "Stories", "Vendas"],
+  ["Perfis", "Conteúdo", "Campanhas"],
+];
+
 export function OrbitHero() {
   const reduce = useReducedMotion();
   const [hover, setHover] = useState<number | null>(null);
@@ -43,6 +49,16 @@ export function OrbitHero() {
                     style={{ filter: "drop-shadow(0 0 4px var(--primary))" }} />
                 ))}
               </svg>
+              {[0, 120, 240].map((a, k) => (
+                <motion.span key={k}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/50 bg-background/85 px-2 py-0.5 text-[9px] font-bold whitespace-nowrap text-primary shadow-glow backdrop-blur sm:text-[10px]"
+                  style={{ left: `${((100 + 98 * Math.cos((a * Math.PI) / 180)) / 200) * 100}%`, top: `${((100 + 98 * Math.sin((a * Math.PI) / 180)) / 200) * 100}%` }}
+                  initial={{ opacity: 0, rotate: 0 }}
+                  animate={{ opacity: 1, rotate: reduce ? 0 : -360 * o.dir }}
+                  transition={{ opacity: { delay: 2 + k * 0.2 + i * 0.2 }, rotate: { duration: o.dur, repeat: Infinity, ease: "linear" } }}>
+                  {orbitTools[i]![k]}
+                </motion.span>
+              ))}
             </motion.div>
           </div>
         ))}
